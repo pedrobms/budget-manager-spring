@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import br.ufsm.csi.budgetmanagerspring.controller.TestController;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,5 +27,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         System.out.println("Configuring authentication");
         auth.authenticationProvider(this.authProvider());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        System.out.println("Configuring http");
+        http
+            .csrf().disable()
+            .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/test").permitAll()
+                .antMatchers("/home").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/admin").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .permitAll()
+                .and()
+            .logout()
+                .permitAll();
     }
 }
