@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import br.ufsm.csi.budgetmanagerspring.model.Role;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -38,8 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/test").permitAll()
-                .antMatchers("/home").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/admin").hasAuthority("ADMIN")
+                .antMatchers("/users").hasAuthority(Role.ADMIN.getValue())
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

@@ -36,6 +36,15 @@ public class TestController {
                 new BCryptPasswordEncoder().encode("1234"),
                 "admin@admin",
                 true,
+                Role.ADMIN
+            )
+        );
+        userRepository.save(
+            new User(
+                "Teste",
+                new BCryptPasswordEncoder().encode("1234"),
+                "user@user",
+                true,
                 Role.USER
             )
         );
