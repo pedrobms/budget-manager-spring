@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/users").hasAuthority(Role.ADMIN.getValue())
-                .antMatchers("/transactions").hasAuthority(Role.USER.getValue())
+                .antMatchers("/user/{userId}/transactions/**").access("@userSecurity.hasUserId(authentication, #userId)")
                 .anyRequest().authenticated();
     }
 }

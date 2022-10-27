@@ -16,29 +16,29 @@ import br.ufsm.csi.budgetmanagerspring.model.Transaction;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/user/{userId}/transactions")
 public class TransactionController {
 
     @Autowired
     private TransactionRepository transactionRepository;
 
     @GetMapping("")
-    public List<Transaction> getTransactions() {
-        return transactionRepository.findAll();
+    public List<Transaction> getTransactions(@PathVariable Long userId) {
+        return transactionRepository.findAllByUserId(userId);
     }
 
     @GetMapping("/{id}")
-    public Transaction getTransactionById(@PathVariable Long id) {
-        return transactionRepository.findById(id).get();
+    public Transaction getTransactionById(@PathVariable Long userId, @PathVariable Long id) {
+        return transactionRepository.findByIdAndUserId(userId, id);
     }
 
     @PostMapping("")
-    public Transaction createTransaction(@RequestBody Transaction transaction) {
+    public Transaction createTransaction(@PathVariable Long userId, @RequestBody Transaction transaction) {
         return transactionRepository.save(transaction);
     }
 
     @PutMapping("/{id}")
-    public Transaction updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
+    public Transaction updateTransaction(@PathVariable Long userId, @PathVariable Long id, @RequestBody Transaction transaction) {
         Transaction transactionToUpdate = transactionRepository.findById(id).get();
         transactionToUpdate.setValue(transaction.getValue());
         transactionToUpdate.setDescription(transaction.getDescription());
@@ -48,7 +48,7 @@ public class TransactionController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTransaction(@PathVariable Long id) {
+    public void deleteTransaction(@PathVariable Long userId, @PathVariable Long id) {
         transactionRepository.deleteById(id);
     }
 }

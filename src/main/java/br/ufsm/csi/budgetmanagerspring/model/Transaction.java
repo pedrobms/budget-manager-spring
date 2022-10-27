@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,9 +19,9 @@ public class Transaction {
     private String description;
     @Column(name = "transaction_value")
     private BigDecimal value;
-    @OneToOne
+    @ManyToOne
     private Category category;
-    @OneToOne
+    @ManyToOne
     private User user;
 
     public Transaction() {
