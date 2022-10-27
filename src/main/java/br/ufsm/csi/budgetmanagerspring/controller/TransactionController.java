@@ -16,7 +16,7 @@ import br.ufsm.csi.budgetmanagerspring.model.Transaction;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/transactions")
 public class TransactionController {
 
     @Autowired

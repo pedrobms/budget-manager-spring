@@ -32,7 +32,7 @@ public class TestController {
     public void test() {
         userRepository.save(
             new User(
-                "Teste",
+                "Usuario",
                 new BCryptPasswordEncoder().encode("1234"),
                 "admin@admin",
                 true,
@@ -41,26 +41,43 @@ public class TestController {
         );
         userRepository.save(
             new User(
-                "Teste",
+                "Administrador",
                 new BCryptPasswordEncoder().encode("1234"),
                 "user@user",
                 true,
                 Role.USER
             )
         );
+
         categoryRepository.save(
             new Category(
-                "Teste",
+                "Categoria usuario",
                 TransactionType.EXPENSE,
+                userRepository.findById(1L).get()
+            )
+        );
+        categoryRepository.save(
+            new Category(
+                "Categoria administrador",
+                TransactionType.INCOME,
+                userRepository.findById(2L).get()
+            )
+        );
+        
+        transactionRepository.save(
+            new Transaction(
+                "Transacao usuario",
+                BigDecimal.valueOf(100.5),
+                categoryRepository.findById(1L).get(),
                 userRepository.findById(1L).get()
             )
         );
         transactionRepository.save(
             new Transaction(
-                "Teste",
-                BigDecimal.valueOf(100.5),
-                categoryRepository.findById(1L).get(),
-                userRepository.findById(1L).get()
+                "Transacao administrador",
+                BigDecimal.valueOf(200.5),
+                categoryRepository.findById(2L).get(),
+                userRepository.findById(2L).get()
             )
         );
     }
