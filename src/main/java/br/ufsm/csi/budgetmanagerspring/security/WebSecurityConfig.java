@@ -32,7 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        System.out.println("Configuring http");
         http
             .csrf().disable()
             .authorizeRequests()
@@ -40,7 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/users").hasAuthority(Role.ADMIN.getValue())
-                .antMatchers("/user/{userId}/transactions/**").access("@userSecurity.hasUserId(authentication, #userId)")
+                .antMatchers("/user/{userId}/transactions").access("@userSecurity.hasPermission(authentication, #userId) or @userSecurity.hasUserId(authentication, #userId)")
+                .antMatchers("/user/{userId}/transactions/{transactionId}").access("@userSecurity.hasUserId(authentication, #userId, #transactionId)")
                 .anyRequest().authenticated();
     }
 }

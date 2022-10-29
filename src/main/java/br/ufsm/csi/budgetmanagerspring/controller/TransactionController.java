@@ -3,6 +3,8 @@ package br.ufsm.csi.budgetmanagerspring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,8 @@ public class TransactionController {
 
     @GetMapping("")
     public List<Transaction> getTransactions(@PathVariable Long userId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user.getAuthorities());
         return transactionRepository.findAllByUserId(userId);
     }
 

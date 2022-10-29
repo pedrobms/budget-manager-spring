@@ -32,7 +32,7 @@ public class TestController {
     public void test() {
         userRepository.save(
             new User(
-                "Usuario",
+                "Administrador",
                 new BCryptPasswordEncoder().encode("1234"),
                 "admin@admin",
                 true,
@@ -41,9 +41,18 @@ public class TestController {
         );
         userRepository.save(
             new User(
-                "Administrador",
+                "Usuario 1",
                 new BCryptPasswordEncoder().encode("1234"),
                 "user@user",
+                true,
+                Role.USER
+            )
+        );
+        userRepository.save(
+            new User(
+                "Usuario 2",
+                new BCryptPasswordEncoder().encode("1234"),
+                "user2@user",
                 true,
                 Role.USER
             )
@@ -51,33 +60,72 @@ public class TestController {
 
         categoryRepository.save(
             new Category(
-                "Categoria usuario",
-                TransactionType.EXPENSE,
+                "Categoria administrador",
+                TransactionType.INCOME,
                 userRepository.findById(1L).get()
             )
         );
         categoryRepository.save(
             new Category(
-                "Categoria administrador",
-                TransactionType.INCOME,
+                "Categoria usuario",
+                TransactionType.EXPENSE,
                 userRepository.findById(2L).get()
             )
         );
-        
+        categoryRepository.save(
+            new Category(
+                "Categoria usuario 2",
+                TransactionType.EXPENSE,
+                userRepository.findById(3L).get()
+            )
+        );
+
         transactionRepository.save(
             new Transaction(
-                "Transacao usuario",
-                BigDecimal.valueOf(100.5),
+                "Transacao 1 administrador",
+                BigDecimal.valueOf(200.5),
                 categoryRepository.findById(1L).get(),
                 userRepository.findById(1L).get()
             )
         );
         transactionRepository.save(
             new Transaction(
-                "Transacao administrador",
+                "Transacao 2 administrador",
                 BigDecimal.valueOf(200.5),
+                categoryRepository.findById(1L).get(),
+                userRepository.findById(1L).get()
+            )
+        );
+        transactionRepository.save(
+            new Transaction(
+                "Transacao 1 usuario",
+                BigDecimal.valueOf(100.5),
                 categoryRepository.findById(2L).get(),
                 userRepository.findById(2L).get()
+            )
+        );
+        transactionRepository.save(
+            new Transaction(
+                "Transacao 2 usuario",
+                BigDecimal.valueOf(100.5),
+                categoryRepository.findById(2L).get(),
+                userRepository.findById(2L).get()
+            )
+        );
+        transactionRepository.save(
+            new Transaction(
+                "Transacao 1 usuario",
+                BigDecimal.valueOf(100.5),
+                categoryRepository.findById(3L).get(),
+                userRepository.findById(3L).get()
+            )
+        );
+        transactionRepository.save(
+            new Transaction(
+                "Transacao 2 usuario",
+                BigDecimal.valueOf(100.5),
+                categoryRepository.findById(3L).get(),
+                userRepository.findById(3L).get()
             )
         );
     }

@@ -30,13 +30,13 @@ public class LoginController {
 
             if (authentication.isAuthenticated()) {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                return new ResponseEntity<>(user, HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Incorrect user or password" + user, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Incorrect user or password", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("Incorrect user or password" + user, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Incorrect user or password", HttpStatus.BAD_REQUEST);
     }
 }
