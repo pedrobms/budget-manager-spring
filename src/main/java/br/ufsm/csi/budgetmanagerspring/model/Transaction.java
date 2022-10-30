@@ -19,6 +19,7 @@ public class Transaction {
     private String description;
     @Column(name = "transaction_value")
     private BigDecimal value;
+    private TransactionType type;
     @ManyToOne
     private Category category;
     @ManyToOne
@@ -27,9 +28,10 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(String description, BigDecimal value, Category category, User user) {
+    public Transaction(String description, BigDecimal value, TransactionType type, Category category, User user) {
         this.description = description;
         this.value = value;
+        this.type = type;
         this.category = category;
         this.user = user;
     }
@@ -56,6 +58,14 @@ public class Transaction {
 
     public void setValue(BigDecimal value) {
         this.value = value;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
     }
 
     public Category getCategory() {

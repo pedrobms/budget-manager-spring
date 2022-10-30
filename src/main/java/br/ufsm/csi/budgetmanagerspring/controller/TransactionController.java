@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerspring.model.Transaction;
+import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
+import br.ufsm.csi.budgetmanagerspring.service.TransactionService;
 
 @RestController
 @RequestMapping("/user/{userId}/transactions")
@@ -24,21 +26,27 @@ public class TransactionController {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private TransactionService transactionService;
+
     @GetMapping("")
     public List<Transaction> getTransactions(@PathVariable Long userId) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user.getAuthorities());
-        return transactionRepository.findAllByUserId(userId);
+        return transactionService.getAllTransactions(userId);
+    }
+
+    @GetMapping("/type/{type}")
+    public List<Transaction> getTransactionsByType(@PathVariable Long userId, @PathVariable String type) {
+        return transactionService.getAllTransactionsByType(userId, TransactionType.fromValue(type));
     }
 
     @GetMapping("/{id}")
     public Transaction getTransactionById(@PathVariable Long userId, @PathVariable Long id) {
-        return transactionRepository.findByIdAndUserId(userId, id);
+        return transactionService.getTransactionById(userId, id);
     }
 
     @PostMapping("")
     public Transaction createTransaction(@PathVariable Long userId, @RequestBody Transaction transaction) {
-        return transactionRepository.save(transaction);
+        return transactionService.addTransaction(transaction);
     }
 
     @PutMapping("/{id}")

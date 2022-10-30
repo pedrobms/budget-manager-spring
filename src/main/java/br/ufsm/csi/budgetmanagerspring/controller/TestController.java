@@ -65,6 +65,7 @@ public class TestController {
                 userRepository.findById(1L).get()
             )
         );
+
         categoryRepository.save(
             new Category(
                 "Categoria usuario",
@@ -79,12 +80,30 @@ public class TestController {
                 userRepository.findById(3L).get()
             )
         );
+        categoryRepository.save(
+            new Category(
+                "Categoria administrador despesa",
+                TransactionType.EXPENSE,
+                userRepository.findById(1L).get()
+            )
+        );
 
         transactionRepository.save(
             new Transaction(
                 "Transacao 1 administrador",
                 BigDecimal.valueOf(200.5),
+                TransactionType.INCOME,
                 categoryRepository.findById(1L).get(),
+                userRepository.findById(1L).get()
+            )
+        );
+
+        transactionRepository.save(
+            new Transaction(
+                "Despesa 1 administrador",
+                BigDecimal.valueOf(200.5),
+                TransactionType.EXPENSE,
+                categoryRepository.findById(4L).get(),
                 userRepository.findById(1L).get()
             )
         );
@@ -92,6 +111,7 @@ public class TestController {
             new Transaction(
                 "Transacao 2 administrador",
                 BigDecimal.valueOf(200.5),
+                TransactionType.INCOME,
                 categoryRepository.findById(1L).get(),
                 userRepository.findById(1L).get()
             )
@@ -100,6 +120,7 @@ public class TestController {
             new Transaction(
                 "Transacao 1 usuario",
                 BigDecimal.valueOf(100.5),
+                TransactionType.EXPENSE,
                 categoryRepository.findById(2L).get(),
                 userRepository.findById(2L).get()
             )
@@ -108,6 +129,7 @@ public class TestController {
             new Transaction(
                 "Transacao 2 usuario",
                 BigDecimal.valueOf(100.5),
+                TransactionType.EXPENSE,
                 categoryRepository.findById(2L).get(),
                 userRepository.findById(2L).get()
             )
@@ -116,6 +138,7 @@ public class TestController {
             new Transaction(
                 "Transacao 1 usuario",
                 BigDecimal.valueOf(100.5),
+                TransactionType.EXPENSE,
                 categoryRepository.findById(3L).get(),
                 userRepository.findById(3L).get()
             )
@@ -124,6 +147,7 @@ public class TestController {
             new Transaction(
                 "Transacao 2 usuario",
                 BigDecimal.valueOf(100.5),
+                TransactionType.EXPENSE,
                 categoryRepository.findById(3L).get(),
                 userRepository.findById(3L).get()
             )

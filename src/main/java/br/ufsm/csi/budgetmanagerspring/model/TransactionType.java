@@ -18,4 +18,13 @@ public enum TransactionType {
     public String getValue() {
         return value;
     }
+
+    public static TransactionType fromValue(String value) {
+        for (TransactionType type : TransactionType.values()) {
+            if (type.getValue().equals(value)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("Invalid transaction type");
+    }
 }
