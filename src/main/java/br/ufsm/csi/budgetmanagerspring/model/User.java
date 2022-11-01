@@ -1,5 +1,7 @@
 package br.ufsm.csi.budgetmanagerspring.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class User {
     private String password;
     private String email;
     private Boolean active;
+    private Date createdAt = new Date(System.currentTimeMillis());
     private Role role;
 
     public User() {
@@ -73,6 +76,14 @@ public class User {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Role getRole() {

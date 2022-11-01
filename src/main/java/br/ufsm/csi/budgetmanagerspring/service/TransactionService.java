@@ -4,17 +4,21 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import br.ufsm.csi.budgetmanagerspring.model.Category;
 import br.ufsm.csi.budgetmanagerspring.model.Transaction;
 import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
+import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
 
 @Service
 public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<Transaction> getAllTransactions(Long userId) {
         return transactionRepository.findAllByUserId(userId);
@@ -32,26 +36,43 @@ public class TransactionService {
         return transactionRepository.findByIdAndUserId(userId, id);
     }
 
-    public Transaction addTransaction(Transaction transaction) {
+    public Transaction addTransaction(Long userId, Transaction transaction) {
+        Category category = categoryRepository.findByIdAndUserId(userId, transaction.getCategory().getId());
+
+        if (category == null) {
+            throw new RuntimeException("Category not found");
+        }
+
         return transactionRepository.save(transaction);
     }
 
     public void deleteTransaction(Long userId, Long id) {
+        Transaction transaction = transactionRepository.findByIdAndUserId(userId, id);
+
+        if (transaction == null) {
+            throw new RuntimeException("Transaction not found");
+        }
+
         transactionRepository.deleteById(id);
     }
 
-    public Transaction updateTransaction(Transaction transaction) {
-        Transaction transactionToUpdate = transactionRepository.findById(transaction.getId()).orElse(null);
-        
-        if (transactionToUpdate != null) {
-            transactionToUpdate.setValue(transaction.getValue());
-            transactionToUpdate.setDescription(transaction.getDescription());
-            transactionToUpdate.setCategory(transaction.getCategory());
-            transactionToUpdate.setUser(transaction.getUser());
-            return transactionRepository.save(transactionToUpdate);
-        }
+    public Transaction updateTransaction(Long userId, Transaction transaction) {
+        Transaction transactionToUpdate = transactionRepository.findByIdAndUserId(userId, transaction.getId());
+        Category category = categoryRepository.findByIdAndUserId(userId, transaction.getCategory().getId());
 
-        return null;
+        if (transactionToUpdate == null) {
+            throw new RuntimeException("Transaction not found");
+        } else if (category == null) {
+            throw new RuntimeException("Category not found");
+        } else if (transaction.getUser().getId() != userId) {
+            throw new RuntimeException("Transaction does not belong to user");
+        }
+        
+        transactionToUpdate.setValue(transaction.getValue());
+        transactionToUpdate.setDescription(transaction.getDescription());
+        transactionToUpdate.setCategory(transaction.getCategory());
+        transactionToUpdate.setUser(transaction.getUser());
+        return transactionRepository.save(transactionToUpdate);
     }
 
     public BigDecimal getSumOfTransactionsByType(Long userId, TransactionType type) {

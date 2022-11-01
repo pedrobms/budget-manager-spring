@@ -3,8 +3,6 @@ package br.ufsm.csi.budgetmanagerspring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,15 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerspring.model.Transaction;
 import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
-import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
 import br.ufsm.csi.budgetmanagerspring.service.TransactionService;
 
 @RestController
 @RequestMapping("/user/{userId}/transactions")
 public class TransactionController {
-
-    @Autowired
-    private TransactionRepository transactionRepository;
 
     @Autowired
     private TransactionService transactionService;
@@ -46,21 +40,16 @@ public class TransactionController {
 
     @PostMapping("")
     public Transaction createTransaction(@PathVariable Long userId, @RequestBody Transaction transaction) {
-        return transactionService.addTransaction(transaction);
+        return transactionService.addTransaction(userId, transaction);
     }
 
     @PutMapping("/{id}")
     public Transaction updateTransaction(@PathVariable Long userId, @PathVariable Long id, @RequestBody Transaction transaction) {
-        Transaction transactionToUpdate = transactionRepository.findById(id).get();
-        transactionToUpdate.setValue(transaction.getValue());
-        transactionToUpdate.setDescription(transaction.getDescription());
-        transactionToUpdate.setCategory(transaction.getCategory());
-        transactionToUpdate.setUser(transaction.getUser());
-        return transactionRepository.save(transactionToUpdate);
+        return transactionService.updateTransaction(userId, transaction);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTransaction(@PathVariable Long userId, @PathVariable Long id) {
-        transactionRepository.deleteById(id);
+        transactionService.deleteTransaction(userId, id);
     }
 }
