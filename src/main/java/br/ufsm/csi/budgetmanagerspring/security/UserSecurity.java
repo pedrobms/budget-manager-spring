@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import br.ufsm.csi.budgetmanagerspring.model.Role;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
 import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
 
@@ -16,16 +17,17 @@ public class UserSecurity {
     @Autowired
     TransactionRepository transactionRepository;
 
-    public boolean hasPermission(Authentication authentication, Long userId) {
+    public boolean isAdmin(Authentication authentication) {
+        System.out.println("checking permission");
         User user = (User) authentication.getPrincipal();
 
-        return userRepository
-            .findByEmail(user.getUsername())
-            .getRole().getValue()
-            .equals("admin");
+        return user.getAuthorities().stream().anyMatch(
+            r -> r.getAuthority().equals(Role.ADMIN.getValue())
+        );
     }
 
     public boolean hasUserId(Authentication authentication, Long userId){
+        System.out.println("checking user id");
         User user = (User) authentication.getPrincipal();
 
         return userRepository
@@ -35,7 +37,8 @@ public class UserSecurity {
     }
 
     public boolean hasUserId(Authentication authentication, Long userId, Long transactionId){
+        System.out.println("checking user id and transaction id");
         return hasUserId(authentication, userId)
-            && transactionRepository.findByIdAndUserId(transactionId, userId) != null;
+            && transactionRepository.findByIdAndUserId(userId, transactionId) != null;
     }
 }
