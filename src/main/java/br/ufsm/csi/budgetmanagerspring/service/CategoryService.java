@@ -44,7 +44,6 @@ public class CategoryService {
 
         categoryToUpdate.setName(category.getName());
         categoryToUpdate.setType(category.getType());
-        categoryToUpdate.setUser(category.getUser());
         
         return categoryRepository.save(categoryToUpdate);
     }

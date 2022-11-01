@@ -1,6 +1,5 @@
 package br.ufsm.csi.budgetmanagerspring.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,16 +70,6 @@ public class TransactionService {
         transactionToUpdate.setValue(transaction.getValue());
         transactionToUpdate.setDescription(transaction.getDescription());
         transactionToUpdate.setCategory(transaction.getCategory());
-        transactionToUpdate.setUser(transaction.getUser());
         return transactionRepository.save(transactionToUpdate);
-    }
-
-    public BigDecimal getSumOfTransactionsByType(Long userId, TransactionType type) {
-        List<Transaction> transactions = transactionRepository.findAllByUserIdAndType(userId, type);
-        BigDecimal sum = new BigDecimal(0);
-        for (Transaction transaction : transactions) {
-            sum = sum.add(transaction.getValue());
-        }
-        return sum;
     }
 }
