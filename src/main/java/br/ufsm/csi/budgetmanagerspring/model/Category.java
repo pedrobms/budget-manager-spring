@@ -1,5 +1,7 @@
 package br.ufsm.csi.budgetmanagerspring.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,7 @@ public class Category {
     private long id;
     private String name;
     private TransactionType type;
+    private Date createdAt = new Date(System.currentTimeMillis());
     @ManyToOne
     private User user;
 
@@ -49,6 +52,14 @@ public class Category {
 
     public void setType(TransactionType type) {
         this.type = type;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public User getUser() {

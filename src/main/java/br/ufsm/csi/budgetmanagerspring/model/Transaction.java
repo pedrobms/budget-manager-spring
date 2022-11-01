@@ -1,6 +1,7 @@
 package br.ufsm.csi.budgetmanagerspring.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ public class Transaction {
     @Column(name = "transaction_value")
     private BigDecimal value;
     private TransactionType type;
+    private Date createdAt = new Date(System.currentTimeMillis());
     @ManyToOne
     private Category category;
     @ManyToOne
@@ -66,6 +68,14 @@ public class Transaction {
 
     public void setType(TransactionType type) {
         this.type = type;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Category getCategory() {
