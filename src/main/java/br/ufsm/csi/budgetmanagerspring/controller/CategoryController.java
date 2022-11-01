@@ -13,40 +13,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerspring.model.Category;
-import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
+import br.ufsm.csi.budgetmanagerspring.service.CategoryService;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/user/{userId}/categories")
 public class CategoryController {
+
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @GetMapping("")
-    public List<Category> getCategories() {
-        return categoryRepository.findAll();
+    public List<Category> getCategories(@PathVariable Long userId) {
+        return categoryService.getAllCategories(userId);
     }
 
     @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable Long id) {
-        return categoryRepository.findById(id).get();
+    public Category getCategoryById(@PathVariable Long userId, @PathVariable Long id) {
+        return categoryService.getCategoryById(userId, id);
     }
 
     @PostMapping("")
-    public Category createCategory(@RequestBody Category category) {
-        return categoryRepository.save(category);
+    public Category createCategory(@PathVariable Long userId, @RequestBody Category category) {
+        return categoryService.addCategory(userId, category);
     }
 
     @PutMapping("/{id}")
-    public Category updateCategory(@PathVariable Long id, @RequestBody Category category) {
-        Category categoryToUpdate = categoryRepository.findById(id).get();
-        categoryToUpdate.setName(category.getName());
-        categoryToUpdate.setType(category.getType());
-        categoryToUpdate.setUser(category.getUser());
-        return categoryRepository.save(categoryToUpdate);
+    public Category updateCategory(@PathVariable Long userId, @PathVariable Long id, @RequestBody Category category) {
+        return categoryService.updateCategory(userId, category);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategory(@PathVariable Long id) {
-        categoryRepository.deleteById(id);
+    public void deleteCategory(@PathVariable Long userId, @PathVariable Long id) {
+        categoryService.deleteCategory(userId, id);
     }
 }

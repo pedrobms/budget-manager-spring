@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "transactions")
 public class Transaction {
@@ -23,8 +25,10 @@ public class Transaction {
     private TransactionType type;
     private Date createdAt = new Date(System.currentTimeMillis());
     @ManyToOne
+    @JsonIgnoreProperties("user")
     private Category category;
     @ManyToOne
+    @JsonIgnoreProperties("password")
     private User user;
 
     public Transaction() {

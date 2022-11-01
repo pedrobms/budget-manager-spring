@@ -18,7 +18,7 @@ public class UserSecurity {
     TransactionRepository transactionRepository;
 
     public boolean isAdmin(Authentication authentication) {
-        System.out.println("checking permission");
+        System.out.println("--------- checking permission ---------");
         User user = (User) authentication.getPrincipal();
 
         return user.getAuthorities().stream().anyMatch(
@@ -27,7 +27,7 @@ public class UserSecurity {
     }
 
     public boolean hasUserId(Authentication authentication, Long userId){
-        System.out.println("checking user id");
+        System.out.println("-------- checking user id --------");
         User user = (User) authentication.getPrincipal();
 
         return userRepository
@@ -37,7 +37,7 @@ public class UserSecurity {
     }
 
     public boolean hasUserId(Authentication authentication, Long userId, Long transactionId){
-        System.out.println("checking user id and transaction id");
+        System.out.println("------- checking user id and transaction id -------");
         return hasUserId(authentication, userId)
             && transactionRepository.findByIdAndUserId(userId, transactionId) != null;
     }
