@@ -22,4 +22,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.category.id = :categoryId")
     List<Transaction> findAllByUserIdAndCategoryId(Long userId, Long categoryId);
+    
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND MONTH(t.createdAt) = :month AND YEAR(t.createdAt) = :year")
+    List<Transaction> findAllByUserIdAndMonthAndYear(Long userId, int month, int year);
+
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.category.id = :categoryId AND MONTH(t.createdAt) = :month AND YEAR(t.createdAt) = YEAR(CURRENT_DATE)")
+    List<Transaction> findAllByUserIdAndMonth(Long userId, int month);
 }
