@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,14 +20,24 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull(message = "Description is required")
     private String description;
+
     @Column(name = "transaction_value")
+    @NotNull(message = "Value is required")
     private BigDecimal value;
+
+    @NotNull(message = "Transction type is required")
     private TransactionType type;
+    
     private Date createdAt = new Date(System.currentTimeMillis());
+
     @ManyToOne
     @JsonIgnoreProperties("user")
+    @NotNull
     private Category category;
+
     @ManyToOne
     @JsonIgnoreProperties("password")
     private User user;

@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(
@@ -20,14 +23,27 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "Name is required")
     private String name;
+
+    @NotEmpty(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
+
+    @NotEmpty(message = "Email is required")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Email is invalid")
     private String email;
+
     private Boolean active;
     private Date createdAt = new Date(System.currentTimeMillis());
     private Role role;
 
     public User() {
+    }
+
+    public User(Long userId){
+        this.id = userId;
     }
 
     public User(String name, String password, String email, Boolean active, Role role) {

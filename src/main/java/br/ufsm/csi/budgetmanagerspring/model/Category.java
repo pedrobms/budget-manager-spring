@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -17,11 +18,18 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull(message = "Name is required")
     private String name;
+
+    @NotNull(message = "Transaction type is required")
     private TransactionType type;
+
     private Date createdAt = new Date(System.currentTimeMillis());
+
     @ManyToOne
     @JsonIgnoreProperties("password")
+    @NotNull(message = "User is required")
     private User user;
 
     public Category() {
@@ -71,5 +79,11 @@ public class Category {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Category [createdAt=" + createdAt + ", id=" + id + ", name=" + name + ", type=" + type + ", user=" + user
+                + "]";
     }
 }
