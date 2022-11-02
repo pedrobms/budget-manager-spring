@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerspring.model.User;
+import br.ufsm.csi.budgetmanagerspring.security.JWTUtil;
+import br.ufsm.csi.budgetmanagerspring.service.UserService;
 
 @RestController
 public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<Object> authentication(@RequestBody User user){
@@ -30,6 +35,15 @@ public class LoginController {
 
             if (authentication.isAuthenticated()) {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                String token = new JWTUtil().tokenGenerator(
+                    userService.getUserByEmail(user.getEmail())
+                );
+
+                System.out.println("-- JWT token: " + token);
+
+                user.setToken(token);
+
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (Exception e) {

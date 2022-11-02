@@ -23,6 +23,10 @@ public class UserService {
         return userRepository.findById(id).get();
     }
 
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public User addUser(User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setActive(true);

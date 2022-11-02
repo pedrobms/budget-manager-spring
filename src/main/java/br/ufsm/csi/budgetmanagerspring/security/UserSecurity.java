@@ -1,5 +1,7 @@
 package br.ufsm.csi.budgetmanagerspring.security;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -29,19 +31,19 @@ public class UserSecurity {
         );
     }
 
-    public boolean hasUserId(Authentication authentication, Long userId){
-        User user = (User) authentication.getPrincipal();
+    public boolean hasUserId(HttpServletRequest request, Long userId) {
+        String token = request.getHeader("Authorization");
 
-        return userRepository.findByEmail(user.getUsername()).getId() == userId;
+        return new JWTUtil().getIdFromToken(token).equals(userId);
     }
 
-    public boolean hasUserIdinTransaction(Authentication authentication, Long userId, Long transactionId){
-        return hasUserId(authentication, userId)
+    public boolean hasUserIdinTransaction(HttpServletRequest request, Long userId, Long transactionId){
+        return hasUserId(request, userId)
             && transactionRepository.findByIdAndUserId(userId, transactionId) != null;
     }
 
-    public boolean hasUserIdinCategory(Authentication authentication, Long userId, Long categoryId){
-        return hasUserId(authentication, userId)
+    public boolean hasUserIdinCategory(HttpServletRequest request, Long userId, Long categoryId){
+        return hasUserId(request, userId)
             && categoryRepository.findByIdAndUserId(userId, categoryId) != null;
     }
 }
