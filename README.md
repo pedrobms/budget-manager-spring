@@ -42,7 +42,7 @@ This rest API allows:
 - PUT `users/{id}` - Update a user by id
 - DELETE `users/{id}` - Delete a user by id
 
-### Category:
+#### Category:
 
 - GET `user/{userId}/categories` - List all categories of a user
 - GET `user/{userId}/categories/{type}` - List all categories of a user by type of transaction
@@ -51,7 +51,7 @@ This rest API allows:
 - PUT `user/{userId}/categories/{id}` - Update a category by id
 - DELETE `user/{userId}/categories/{id}` - Delete a category by id
 
-### Transaction:
+#### Transaction:
 
 - GET `user/{userId}/transactions` - List all transactions of a user
 - GET `user/{userId}/transactions/type/{type}` - List all transactions of a user by type of transaction
@@ -61,6 +61,6 @@ This rest API allows:
 - PUT `user/{userId}/transactions/{id}` - Update a transaction by id
 - DELETE `user/{userId}/transactions/{id}` - Delete a transaction by id
 
-### Balance:
+#### Balance:
 
 - GET `user/{userId}/balance` - Get the account balance of a user
