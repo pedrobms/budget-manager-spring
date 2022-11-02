@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerspring.model.Category;
+import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
 import br.ufsm.csi.budgetmanagerspring.service.CategoryService;
 
 @RestController
@@ -25,6 +26,11 @@ public class CategoryController {
     @GetMapping("")
     public List<Category> getCategories(@PathVariable Long userId) {
         return categoryService.getAllCategories(userId);
+    }
+
+    @GetMapping("/type/{type}")
+    public List<Category> getCategoriesByType(@PathVariable Long userId, @PathVariable String type) {
+        return categoryService.getAllCategoriesByType(userId, TransactionType.fromValue(type));
     }
 
     @GetMapping("/{id}")

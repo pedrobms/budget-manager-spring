@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.ufsm.csi.budgetmanagerspring.model.Category;
+import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
@@ -14,5 +15,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     public List<Category> findAllByUserId(Long userId);
 
     @Query("SELECT c FROM Category c WHERE c.user.id = :userId AND c.id = :id")
-    Category findByIdAndUserId(Long userId, Long id);
+    public Category findByIdAndUserId(Long userId, Long id);
+
+    @Query("SELECT c FROM Category c WHERE c.user.id = :userId AND c.type = :type")
+    public List<Category> findAllByUserIdAndType(Long userId, TransactionType type);
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufsm.csi.budgetmanagerspring.model.Category;
+import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
 import br.ufsm.csi.budgetmanagerspring.model.User;
 import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
 
@@ -16,6 +17,10 @@ public class CategoryService {
 
     public List<Category> getAllCategories(Long userId) {
         return categoryRepository.findAllByUserId(userId);
+    }
+
+    public List<Category> getAllCategoriesByType(Long userId, TransactionType type) {
+        return categoryRepository.findAllByUserIdAndType(userId, type);
     }
 
     public Category getCategoryById(Long userId, Long id) {
