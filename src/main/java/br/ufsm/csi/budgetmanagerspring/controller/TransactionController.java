@@ -33,6 +33,11 @@ public class TransactionController {
         return transactionService.getAllTransactionsByType(userId, TransactionType.fromValue(type));
     }
 
+    @GetMapping("/category/{categoryId}")
+    public List<Transaction> getTransactionsByCategory(@PathVariable Long userId, @PathVariable Long categoryId) {
+        return transactionService.getAllTransactionsByCategory(userId, categoryId);
+    }
+
     @GetMapping("/{id}")
     public Transaction getTransactionById(@PathVariable Long userId, @PathVariable Long id) {
         return transactionService.getTransactionById(userId, id);

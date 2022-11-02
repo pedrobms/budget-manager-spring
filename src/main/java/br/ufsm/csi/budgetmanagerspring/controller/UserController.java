@@ -2,6 +2,8 @@ package br.ufsm.csi.budgetmanagerspring.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +34,8 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public User createUser(@Valid @RequestBody User user) {
+        return userService.addUser(user);
     }
 
     @PutMapping("/{id}")

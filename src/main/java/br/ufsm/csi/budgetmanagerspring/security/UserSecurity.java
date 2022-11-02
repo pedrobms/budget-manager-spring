@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import br.ufsm.csi.budgetmanagerspring.model.Role;
+import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
 import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
 
@@ -16,6 +17,9 @@ public class UserSecurity {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     public boolean isAdmin(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
@@ -28,14 +32,16 @@ public class UserSecurity {
     public boolean hasUserId(Authentication authentication, Long userId){
         User user = (User) authentication.getPrincipal();
 
-        return userRepository
-            .findByEmail(user.getUsername())
-            .getId()
-            .equals(userId);
+        return userRepository.findByEmail(user.getUsername()).getId() == userId;
     }
 
-    public boolean hasUserId(Authentication authentication, Long userId, Long transactionId){
+    public boolean hasUserIdinTransaction(Authentication authentication, Long userId, Long transactionId){
         return hasUserId(authentication, userId)
             && transactionRepository.findByIdAndUserId(userId, transactionId) != null;
+    }
+
+    public boolean hasUserIdinCategory(Authentication authentication, Long userId, Long categoryId){
+        return hasUserId(authentication, userId)
+            && categoryRepository.findByIdAndUserId(userId, categoryId) != null;
     }
 }

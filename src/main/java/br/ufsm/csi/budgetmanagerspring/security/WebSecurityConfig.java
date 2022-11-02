@@ -42,8 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/{userId}").access("@userSecurity.isAdmin(authentication) OR @userSecurity.hasUserId(authentication, #userId)")
                 .antMatchers("/user/{userId}/transactions").access("@userSecurity.hasUserId(authentication, #userId)")
                 .antMatchers("/user/{userId}/transactions/type/{type}").access("@userSecurity.hasUserId(authentication, #userId)")
-                .antMatchers("/user/{userId}/transactions/{transactionId}").access("@userSecurity.hasUserId(authentication, #userId, #transactionId)")
+                .antMatchers("user/{userId}/transactions/category/{categoryId}").access("@userSecurity.hasUserIdinCategory(authentication, #userId, #categoryId)")
+                .antMatchers("/user/{userId}/transactions/{transactionId}").access("@userSecurity.hasUserIdinTransaction(authentication, #userId, #transactionId)")
                 .antMatchers("/user/{userId}/categories").access("@userSecurity.hasUserId(authentication, #userId)")
+                .antMatchers("/user/{userId}/balance/**").access("@userSecurity.hasUserId(authentication, #userId)")
                 .anyRequest().authenticated();
     }
 }

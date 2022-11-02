@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.ufsm.csi.budgetmanagerspring.model.Category;
 import br.ufsm.csi.budgetmanagerspring.model.Transaction;
 import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
+import br.ufsm.csi.budgetmanagerspring.model.User;
 import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
 
@@ -41,6 +42,8 @@ public class TransactionService {
         if (category == null) {
             throw new RuntimeException("Category not found");
         }
+
+        transaction.setUser(new User(userId));
 
         return transactionRepository.save(transaction);
     }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.ufsm.csi.budgetmanagerspring.model.Role;
 import br.ufsm.csi.budgetmanagerspring.model.User;
 import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
 
@@ -22,8 +23,10 @@ public class UserService {
         return userRepository.findById(id).get();
     }
 
-    public User createUser(User user) {
+    public User addUser(User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setActive(true);
+        user.setRole(Role.USER);
         return userRepository.save(user);
     }
 
