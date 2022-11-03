@@ -2,6 +2,8 @@ package br.ufsm.csi.budgetmanagerspring.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,12 +41,12 @@ public class CategoryController {
     }
 
     @PostMapping("")
-    public Category createCategory(@PathVariable Long userId, @RequestBody Category category) {
+    public Category createCategory(@PathVariable Long userId, @Valid @RequestBody Category category) {
         return categoryService.addCategory(userId, category);
     }
 
     @PutMapping("/{id}")
-    public Category updateCategory(@PathVariable Long userId, @PathVariable Long id, @RequestBody Category category) {
+    public Category updateCategory(@PathVariable Long userId, @PathVariable Long id, @Valid @RequestBody Category category) {
         return categoryService.updateCategory(userId, category);
     }
 

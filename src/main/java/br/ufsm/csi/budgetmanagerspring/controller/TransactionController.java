@@ -2,6 +2,8 @@ package br.ufsm.csi.budgetmanagerspring.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,12 +46,12 @@ public class TransactionController {
     }
 
     @PostMapping("")
-    public Transaction createTransaction(@PathVariable Long userId, @RequestBody Transaction transaction) {
+    public Transaction createTransaction(@PathVariable Long userId, @Valid @RequestBody Transaction transaction) {
         return transactionService.addTransaction(userId, transaction);
     }
 
     @PutMapping("/{id}")
-    public Transaction updateTransaction(@PathVariable Long userId, @PathVariable Long id, @RequestBody Transaction transaction) {
+    public Transaction updateTransaction(@PathVariable Long userId, @PathVariable Long id, @Valid @RequestBody Transaction transaction) {
         return transactionService.updateTransaction(userId, transaction);
     }
 
