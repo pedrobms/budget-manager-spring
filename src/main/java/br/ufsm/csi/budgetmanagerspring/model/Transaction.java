@@ -25,10 +25,10 @@ public class Transaction {
     private String description;
 
     @Column(name = "transaction_value")
-    @NotEmpty(message = "Value is required")
+    @NotNull(message = "Value is required")
     private BigDecimal value;
 
-    @NotEmpty(message = "Transction type is required")
+    @NotNull(message = "Transction type is required")
     private TransactionType type;
     
     private Date createdAt = new Date(System.currentTimeMillis());
