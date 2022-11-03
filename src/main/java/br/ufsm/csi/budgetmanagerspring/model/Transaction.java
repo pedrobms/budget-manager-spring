@@ -108,4 +108,10 @@ public class Transaction {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction [category=" + category + ", createdAt=" + createdAt + ", description=" + description + ", id="
+                + id + ", type=" + type + ", user=" + user + ", value=" + value + "]";
+    }
 }

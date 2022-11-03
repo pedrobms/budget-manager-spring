@@ -12,11 +12,11 @@ import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("SELECT c FROM Category c WHERE c.user.id = ?1")
-    public List<Category> findAllByUserId(Long userId);
+    List<Category> findAllByUserId(Long userId);
 
     @Query("SELECT c FROM Category c WHERE c.user.id = :userId AND c.id = :id")
-    public Category findByIdAndUserId(Long userId, Long id);
+    Category findByIdAndUserId(Long userId, Long id);
 
     @Query("SELECT c FROM Category c WHERE c.user.id = :userId AND c.type = :type")
-    public List<Category> findAllByUserIdAndType(Long userId, TransactionType type);
+    List<Category> findAllByUserIdAndType(Long userId, TransactionType type);
 }

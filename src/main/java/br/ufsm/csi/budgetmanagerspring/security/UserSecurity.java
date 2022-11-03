@@ -15,9 +15,6 @@ import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
 @Component("userSecurity")
 public class UserSecurity {
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     TransactionRepository transactionRepository;
 
     @Autowired
