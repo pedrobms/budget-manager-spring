@@ -1,6 +1,4 @@
-# Budget Manager
-
-Budget Manager is a simple web application that allows you to manage your budget. It is written in Java using Spring Boot.
+# Budget Manager API
 
 Developed as a project for the discipline of "*Programação Orientada a Objetos para web II* (Object Oriented Programming for web II)" at the "*Universidade Federal de Santa Maria* (Federal University of Santa Maria)".
 
