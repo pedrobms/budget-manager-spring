@@ -37,7 +37,6 @@ public class User {
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Email is invalid")
     private String email;
     
-    @JsonIgnore
     private String token;
     private Boolean active;
     private Date createdAt = new Date(System.currentTimeMillis());
