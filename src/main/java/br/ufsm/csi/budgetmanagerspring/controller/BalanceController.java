@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.ufsm.csi.budgetmanagerspring.service.BalanceService;
 
 @RestController
-@RequestMapping("/user/{userId}/balance")
+@RequestMapping("/users/{userId}/balance")
 public class BalanceController {
     @Autowired
     private BalanceService balanceService;

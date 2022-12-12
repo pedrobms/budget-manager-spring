@@ -44,16 +44,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/auth/*").permitAll()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/users").hasAuthority(Role.ADMIN.getValue())
                 .antMatchers("/users/{userId}").access("@userSecurity.isAdmin(authentication) OR @userSecurity.hasUserId(request, #userId)")
-                .antMatchers("/user/{userId}/transactions").access("@userSecurity.hasUserId(request, #userId)")
-                .antMatchers("/user/{userId}/transactions/type/{type}").access("@userSecurity.hasUserId(request, #userId)")
-                .antMatchers("/user/{userId}/transactions/category/{categoryId}").access("@userSecurity.hasUserIdinCategory(request, #userId, #categoryId)")
-                .antMatchers("/user/{userId}/transactions/{transactionId}").access("@userSecurity.hasUserIdinTransaction(request, #userId, #transactionId)")
-                .antMatchers("/user/{userId}/categories").access("@userSecurity.hasUserId(request, #userId)")
-                .antMatchers("/user/{userId}/balance/**").access("@userSecurity.hasUserId(request, #userId)")
+                .antMatchers("/users/{userId}/transactions").access("@userSecurity.hasUserId(request, #userId)")
+                .antMatchers("/users/{userId}/transactions/type/{type}").access("@userSecurity.hasUserId(request, #userId)")
+                .antMatchers("/users/{userId}/transactions/category/{categoryId}").access("@userSecurity.hasUserIdinCategory(request, #userId, #categoryId)")
+                .antMatchers("/users/{userId}/transactions/{transactionId}").access("@userSecurity.hasUserIdinTransaction(request, #userId, #transactionId)")
+                .antMatchers("/users/{userId}/categories").access("@userSecurity.hasUserId(request, #userId)")
+                .antMatchers("/users/{userId}/balance/**").access("@userSecurity.hasUserId(request, #userId)")
                 .anyRequest().authenticated();
         
         http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class);

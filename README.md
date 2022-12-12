@@ -28,8 +28,9 @@ This rest API allows:
 ---
 #### Authentication:
 
-- POST `/login` - Login with email and password
-- POST `/register` - Register a new user
+- POST `auth/login` - Login with email and password
+- POST `auth/register` - Register a new user
+- POST `auth/logout` - Logout
 
 
 #### User:
@@ -42,23 +43,23 @@ This rest API allows:
 
 #### Category:
 
-- GET `user/{userId}/categories` - List all categories of a user
-- GET `user/{userId}/categories/{type}` - List all categories of a user by type of transaction
-- POST `user/{userId}/categories` - Create a new category for a user
-- GET `user/{userId}/categories/{id}` - Get a category by id
-- PUT `user/{userId}/categories/{id}` - Update a category by id
-- DELETE `user/{userId}/categories/{id}` - Delete a category by id
+- GET `users/{userId}/categories` - List all categories of a user
+- GET `users/{userId}/categories/{type}` - List all categories of a user by type of transaction
+- POST `users/{userId}/categories` - Create a new category for a user
+- GET `users/{userId}/categories/{id}` - Get a category by id
+- PUT `users/{userId}/categories/{id}` - Update a category by id
+- DELETE `users/{userId}/categories/{id}` - Delete a category by id
 
 #### Transaction:
 
-- GET `user/{userId}/transactions` - List all transactions of a user
-- GET `user/{userId}/transactions/type/{type}` - List all transactions of a user by type of transaction
-- GET `user/{userId}/transactions/category/{categoryId}` - List all transactions of a user by category
-- POST `user/{userId}/transactions` - Create a new transaction for a user
-- GET `user/{userId}/transactions/{id}` - Get a transaction by id
-- PUT `user/{userId}/transactions/{id}` - Update a transaction by id
-- DELETE `user/{userId}/transactions/{id}` - Delete a transaction by id
+- GET `users/{userId}/transactions` - List all transactions of a user
+- GET `users/{userId}/transactions/type/{type}` - List all transactions of a user by type of transaction
+- GET `users/{userId}/transactions/category/{categoryId}` - List all transactions of a user by category
+- POST `users/{userId}/transactions` - Create a new transaction for a user
+- GET `users/{userId}/transactions/{id}` - Get a transaction by id
+- PUT `users/{userId}/transactions/{id}` - Update a transaction by id
+- DELETE `users/{userId}/transactions/{id}` - Delete a transaction by id
 
 #### Balance:
 
-- GET `user/{userId}/balance` - Get the account balance of a user
+- GET `users/{userId}/balance` - Get the account balance of a user

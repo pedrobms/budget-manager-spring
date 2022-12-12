@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import br.ufsm.csi.budgetmanagerspring.model.Role;
 import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
 import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
-import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
 
 @Component("userSecurity")
 public class UserSecurity {

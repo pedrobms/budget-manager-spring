@@ -19,7 +19,7 @@ import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
 import br.ufsm.csi.budgetmanagerspring.service.CategoryService;
 
 @RestController
-@RequestMapping("/user/{userId}/categories")
+@RequestMapping("/users/{userId}/categories")
 public class CategoryController {
 
     @Autowired

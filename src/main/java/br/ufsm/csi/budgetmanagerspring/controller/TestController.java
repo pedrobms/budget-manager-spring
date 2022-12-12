@@ -1,6 +1,9 @@
 package br.ufsm.csi.budgetmanagerspring.controller;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,12 +31,21 @@ public class TestController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/resource")
+    public Map<String,Object> home() {
+        Map<String,Object> model = new HashMap<String,Object>();
+        model.put("id", UUID.randomUUID().toString());
+        model.put("content", "Hello World");
+        return model;
+    }
+    
+
     @GetMapping("")
     public void test() {
         userRepository.save(
             new User(
                 "Administrador",
-                new BCryptPasswordEncoder().encode("1234"),
+                new BCryptPasswordEncoder().encode("123456"),
                 "admin@admin",
                 true,
                 Role.ADMIN
@@ -42,7 +54,7 @@ public class TestController {
         userRepository.save(
             new User(
                 "Usuario 1",
-                new BCryptPasswordEncoder().encode("1234"),
+                new BCryptPasswordEncoder().encode("123456"),
                 "user@user",
                 true,
                 Role.USER
@@ -51,7 +63,7 @@ public class TestController {
         userRepository.save(
             new User(
                 "Usuario 2",
-                new BCryptPasswordEncoder().encode("1234"),
+                new BCryptPasswordEncoder().encode("123456"),
                 "user2@user",
                 true,
                 Role.USER

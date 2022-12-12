@@ -23,7 +23,7 @@ public class AuthenticationFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String url = request.getRequestURI();
 
-        if (!url.contains("login")) {
+        if (!url.contains("auth/login")) {
             String token = request.getHeader("Authorization");
             String username = new JWTUtil().getUsernameFromToken(token);
             
