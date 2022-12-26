@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.security;
+package br.ufsm.csi.budgetmanagerapi.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import br.ufsm.csi.budgetmanagerspring.model.Role;
+import br.ufsm.csi.budgetmanagerapi.model.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
+            .cors().and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
                 .antMatchers("/").permitAll()

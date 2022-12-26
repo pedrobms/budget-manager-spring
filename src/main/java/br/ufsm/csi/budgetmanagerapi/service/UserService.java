@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.service;
+package br.ufsm.csi.budgetmanagerapi.service;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.ufsm.csi.budgetmanagerspring.model.Role;
-import br.ufsm.csi.budgetmanagerspring.model.User;
-import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
+import br.ufsm.csi.budgetmanagerapi.model.Role;
+import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.repository.UserRepository;
 
 @Service
 public class UserService {

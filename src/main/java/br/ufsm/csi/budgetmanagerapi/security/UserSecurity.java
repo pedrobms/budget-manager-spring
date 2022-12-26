@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.security;
+package br.ufsm.csi.budgetmanagerapi.security;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,9 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import br.ufsm.csi.budgetmanagerspring.model.Role;
-import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
-import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
+import br.ufsm.csi.budgetmanagerapi.model.Role;
+import br.ufsm.csi.budgetmanagerapi.repository.CategoryRepository;
+import br.ufsm.csi.budgetmanagerapi.repository.TransactionRepository;
 
 @Component("userSecurity")
 public class UserSecurity {

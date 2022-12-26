@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.controller;
+package br.ufsm.csi.budgetmanagerapi.controller;
 
 import java.math.BigDecimal;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufsm.csi.budgetmanagerspring.service.BalanceService;
+import br.ufsm.csi.budgetmanagerapi.service.BalanceService;
 
 @RestController
 @RequestMapping("/users/{userId}/balance")

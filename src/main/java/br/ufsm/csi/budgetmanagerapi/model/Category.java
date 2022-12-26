@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.model;
+package br.ufsm.csi.budgetmanagerapi.model;
 
 import java.util.Date;
 

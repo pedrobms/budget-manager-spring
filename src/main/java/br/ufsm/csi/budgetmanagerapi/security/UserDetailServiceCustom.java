@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.security;
+package br.ufsm.csi.budgetmanagerapi.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.ufsm.csi.budgetmanagerspring.model.User;
-import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
+import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.repository.UserRepository;
 
 @Service
 public class UserDetailServiceCustom implements UserDetailsService {

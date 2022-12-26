@@ -1,14 +1,14 @@
-package br.ufsm.csi.budgetmanagerspring.service;
+package br.ufsm.csi.budgetmanagerapi.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufsm.csi.budgetmanagerspring.model.Category;
-import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
-import br.ufsm.csi.budgetmanagerspring.model.User;
-import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
+import br.ufsm.csi.budgetmanagerapi.model.Category;
+import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
+import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.repository.CategoryRepository;
 
 @Service
 public class CategoryService {

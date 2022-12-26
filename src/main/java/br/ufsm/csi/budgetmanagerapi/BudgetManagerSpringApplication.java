@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring;
+package br.ufsm.csi.budgetmanagerapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

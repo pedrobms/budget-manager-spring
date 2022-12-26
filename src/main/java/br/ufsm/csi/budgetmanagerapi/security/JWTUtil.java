@@ -1,11 +1,11 @@
-package br.ufsm.csi.budgetmanagerspring.security;
+package br.ufsm.csi.budgetmanagerapi.security;
 
 import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.ufsm.csi.budgetmanagerspring.model.User;
+import br.ufsm.csi.budgetmanagerapi.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

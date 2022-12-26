@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.controller;
+package br.ufsm.csi.budgetmanagerapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufsm.csi.budgetmanagerspring.model.User;
-import br.ufsm.csi.budgetmanagerspring.security.JWTUtil;
-import br.ufsm.csi.budgetmanagerspring.service.UserService;
+import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.security.JWTUtil;
+import br.ufsm.csi.budgetmanagerapi.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/auth")
 public class AuthController {
     public static final String BAD_CREDENTIALS_MESSAGE = "Senha ou email incorretos";
@@ -45,9 +45,7 @@ public class AuthController {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                String token = new JWTUtil().tokenGenerator(
-                    userService.getUserByEmail(user.getEmail())
-                );
+                String token = new JWTUtil().tokenGenerator(user);
 
                 System.out.println("-- JWT token: " + token);
 
@@ -60,7 +58,6 @@ public class AuthController {
             e.printStackTrace();
             return new ResponseEntity<>(BAD_CREDENTIALS_MESSAGE, HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity<>(BAD_CREDENTIALS_MESSAGE, HttpStatus.BAD_REQUEST);
     }
 

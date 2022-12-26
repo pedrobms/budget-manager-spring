@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.controller;
+package br.ufsm.csi.budgetmanagerapi.controller;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufsm.csi.budgetmanagerspring.model.Transaction;
-import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
-import br.ufsm.csi.budgetmanagerspring.service.TransactionService;
+import br.ufsm.csi.budgetmanagerapi.model.Transaction;
+import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
+import br.ufsm.csi.budgetmanagerapi.service.TransactionService;
 
 @RestController
 @RequestMapping("/users/{userId}/transactions")

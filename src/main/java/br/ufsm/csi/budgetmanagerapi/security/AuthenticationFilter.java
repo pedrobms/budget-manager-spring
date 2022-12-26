@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.security;
+package br.ufsm.csi.budgetmanagerapi.security;
 
 import java.io.IOException;
 

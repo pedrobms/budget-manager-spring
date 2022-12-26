@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.service;
+package br.ufsm.csi.budgetmanagerapi.service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufsm.csi.budgetmanagerspring.model.Transaction;
-import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
-import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
+import br.ufsm.csi.budgetmanagerapi.model.Transaction;
+import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
+import br.ufsm.csi.budgetmanagerapi.repository.TransactionRepository;
 
 @Service
 public class BalanceService {

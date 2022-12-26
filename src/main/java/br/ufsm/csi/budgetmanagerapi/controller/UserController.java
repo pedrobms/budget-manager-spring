@@ -1,10 +1,11 @@
-package br.ufsm.csi.budgetmanagerspring.controller;
+package br.ufsm.csi.budgetmanagerapi.controller;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufsm.csi.budgetmanagerspring.model.User;
-import br.ufsm.csi.budgetmanagerspring.service.UserService;
+import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.service.UserService;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:8081")
 public class UserController {
     @Autowired
     private UserService userService;

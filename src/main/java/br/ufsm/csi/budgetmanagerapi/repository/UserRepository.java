@@ -1,10 +1,10 @@
-package br.ufsm.csi.budgetmanagerspring.repository;
+package br.ufsm.csi.budgetmanagerapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.ufsm.csi.budgetmanagerspring.model.User;
+import br.ufsm.csi.budgetmanagerapi.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

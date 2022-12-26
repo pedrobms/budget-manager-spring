@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.repository;
+package br.ufsm.csi.budgetmanagerapi.repository;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.ufsm.csi.budgetmanagerspring.model.Category;
-import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
+import br.ufsm.csi.budgetmanagerapi.model.Category;
+import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {

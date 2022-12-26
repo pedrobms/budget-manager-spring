@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.controller;
+package br.ufsm.csi.budgetmanagerapi.controller;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufsm.csi.budgetmanagerspring.model.Category;
-import br.ufsm.csi.budgetmanagerspring.model.Role;
-import br.ufsm.csi.budgetmanagerspring.model.Transaction;
-import br.ufsm.csi.budgetmanagerspring.model.TransactionType;
-import br.ufsm.csi.budgetmanagerspring.model.User;
-import br.ufsm.csi.budgetmanagerspring.repository.CategoryRepository;
-import br.ufsm.csi.budgetmanagerspring.repository.TransactionRepository;
-import br.ufsm.csi.budgetmanagerspring.repository.UserRepository;
+import br.ufsm.csi.budgetmanagerapi.model.Category;
+import br.ufsm.csi.budgetmanagerapi.model.Role;
+import br.ufsm.csi.budgetmanagerapi.model.Transaction;
+import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
+import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.repository.CategoryRepository;
+import br.ufsm.csi.budgetmanagerapi.repository.TransactionRepository;
+import br.ufsm.csi.budgetmanagerapi.repository.UserRepository;
 
 @RestController
 @RequestMapping("/test")

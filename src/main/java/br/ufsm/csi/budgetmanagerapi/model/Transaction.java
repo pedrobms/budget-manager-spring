@@ -1,4 +1,4 @@
-package br.ufsm.csi.budgetmanagerspring.model;
+package br.ufsm.csi.budgetmanagerapi.model;
 
 import java.math.BigDecimal;
 import java.util.Date;

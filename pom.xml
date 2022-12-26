@@ -9,9 +9,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.ufsm.csi</groupId>
-	<artifactId>budget-manager-spring</artifactId>
+	<artifactId>budget-manager-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>budget-manager-spring</name>
+	<name>budget-manager-api</name>
 	<description>Budget manager</description>
 	<properties>
 		<java.version>11</java.version>
