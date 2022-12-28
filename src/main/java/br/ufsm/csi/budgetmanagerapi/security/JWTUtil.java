@@ -44,6 +44,14 @@ public class JWTUtil {
         return null;
     }
 
+    public String getRoleFromToken(String token) {
+        if (token != null) {
+            return parseToken(token).get("role", String.class);
+        }
+
+        return null;
+    }
+
     public boolean isTokenValid(String token) {
         return parseToken(token).getExpiration().before(new Date());
     }

@@ -19,12 +19,10 @@ public class UserSecurity {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public boolean isAdmin(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-
-        return user.getAuthorities().stream().anyMatch(
-            r -> r.getAuthority().equals(Role.ADMIN.getValue())
-        );
+    public boolean isAdmin(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        
+        return new JWTUtil().getRoleFromToken(token).equals(Role.ADMIN.getValue());
     }
 
     public boolean hasUserId(HttpServletRequest request, Long userId) {

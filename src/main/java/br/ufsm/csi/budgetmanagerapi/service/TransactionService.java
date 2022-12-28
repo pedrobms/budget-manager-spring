@@ -66,7 +66,7 @@ public class TransactionService {
             throw new RuntimeException("Transaction not found");
         } else if (category == null) {
             throw new RuntimeException("Category not found");
-        } else if (transaction.getUser().getId() != userId) {
+        } else if (transactionToUpdate.getUser().getId() != userId) {
             throw new RuntimeException("Transaction does not belong to user");
         }
         

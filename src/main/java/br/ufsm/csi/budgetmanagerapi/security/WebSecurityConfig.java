@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/*").permitAll()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/users").hasAuthority(Role.ADMIN.getValue())
-                .antMatchers("/users/{userId}").access("@userSecurity.isAdmin(authentication) OR @userSecurity.hasUserId(request, #userId)")
+                .antMatchers("/users/{userId}").access("@userSecurity.isAdmin(request) OR @userSecurity.hasUserId(request, #userId)")
                 .antMatchers("/users/{userId}/transactions").access("@userSecurity.hasUserId(request, #userId)")
                 .antMatchers("/users/{userId}/transactions/type/{type}").access("@userSecurity.hasUserId(request, #userId)")
                 .antMatchers("/users/{userId}/transactions/category/{categoryId}").access("@userSecurity.hasUserIdinCategory(request, #userId, #categoryId)")

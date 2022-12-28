@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,8 +53,14 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public Transaction updateTransaction(@PathVariable Long userId, @PathVariable Long id, @Valid @RequestBody Transaction transaction) {
-        return transactionService.updateTransaction(userId, transaction);
+    public ResponseEntity<Object> updateTransaction(@PathVariable Long userId, @PathVariable Long id, @Valid @RequestBody Transaction transaction) {
+        try {
+            Transaction transactionUpdated = transactionService.updateTransaction(userId, transaction);
+            return new ResponseEntity<>(transactionUpdated, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{id}")

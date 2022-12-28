@@ -21,8 +21,8 @@ import br.ufsm.csi.budgetmanagerapi.service.UserService;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/auth")
 public class AuthController {
-    public static final String BAD_CREDENTIALS_MESSAGE = "Senha ou email incorretos";
-    public static final String USER_ALREADY_EXISTS_MESSAGE = "Email já cadastrado";
+    public static final String BAD_CREDENTIALS_MESSAGE = "Password or email invalid";
+    public static final String USER_ALREADY_EXISTS_MESSAGE = "Email already exists";
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -63,13 +63,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody User user){
-        User registeredUser = userService.addUser(user);
-
-        if(registeredUser != null){
+        try {
+            userService.addUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ResponseEntity<Object> response = new ResponseEntity<>(USER_ALREADY_EXISTS_MESSAGE, HttpStatus.BAD_REQUEST);
+            System.out.println(response);
+            return response;
         }
-
-        return new ResponseEntity<>(USER_ALREADY_EXISTS_MESSAGE, HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/logout")
