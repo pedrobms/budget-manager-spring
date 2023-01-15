@@ -63,3 +63,6 @@ This rest API allows:
 #### Balance:
 
 - GET `users/{userId}/balance` - Get the account balance of a user
+- GET `users/{userId}/balance/income` - Get the income balance of a user
+- GET `users/{userId}/balance/expense` - Get the outcome balance of a user
+- GET `users/{userId}/balance/month/{month}` - Get the account balance of a user by month
