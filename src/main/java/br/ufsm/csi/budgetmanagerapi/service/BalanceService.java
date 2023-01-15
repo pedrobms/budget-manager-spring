@@ -1,6 +1,8 @@
 package br.ufsm.csi.budgetmanagerapi.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,21 @@ public class BalanceService {
         return sum;
     }
 
-    public BigDecimal getSumOfTransactionsByMonth(Long userId, int month) {
-        List<Transaction> transactions = transactionRepository.findAllByUserIdAndMonth(userId, month);
+    public BigDecimal getSumOfTransactionsByPeriod(Long userId, String startDate, String endDate) {
+        LocalDateTime startDateTime = LocalDate.parse(startDate).atStartOfDay();
+        LocalDateTime endDateTime = LocalDate.parse(endDate).atTime(23, 59, 59);
+        List<Transaction> transactions = transactionRepository.findAllByUserIdAndCreatedAtBetween(userId, startDateTime, endDateTime);
+        BigDecimal sum = new BigDecimal(0);
+        for (Transaction transaction : transactions) {
+            sum = sum.add(transaction.getValue());
+        }
+        return sum;
+    }
+
+    public BigDecimal getSumOfTransactionsByPeriodAndType(Long userId, String startDate, String endDate, TransactionType type) {
+        LocalDateTime startDateTime = LocalDate.parse(startDate).atStartOfDay();
+        LocalDateTime endDateTime = LocalDate.parse(endDate).atTime(23, 59, 59);
+        List<Transaction> transactions = transactionRepository.findAllByUserIdAndCreatedAtBetweenAndType(userId, startDateTime, endDateTime, type);
         BigDecimal sum = new BigDecimal(0);
         for (Transaction transaction : transactions) {
             sum = sum.add(transaction.getValue());

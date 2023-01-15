@@ -52,7 +52,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/find", params = "type")
-    public List<Category> getCategoriesByType(@PathVariable Long userId, @RequestParam() String type) {
+    public List<Category> getCategoriesByType(@PathVariable Long userId, String type) {
         return categoryService.getAllCategoriesByType(userId, TransactionType.fromValue(type));
     }
 }

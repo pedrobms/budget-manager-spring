@@ -60,17 +60,17 @@ public class TransactionController {
     }
 
     @GetMapping(value = "/find", params = { "startDate", "endDate" })
-    public List<Transaction> getTransactionsByPeriod(@PathVariable Long userId, @RequestParam() String startDate, @RequestParam() String endDate) {
+    public List<Transaction> getTransactionsByPeriod(@PathVariable Long userId, String startDate, String endDate) {
         return transactionService.getAllTransactionsByPeriod(userId, startDate, endDate);
     }
 
     @GetMapping(value = "/find", params = "type" )
-    public List<Transaction> getTransactionsByType(@PathVariable Long userId, @RequestParam() String type) {
+    public List<Transaction> getTransactionsByType(@PathVariable Long userId, String type) {
         return transactionService.getAllTransactionsByType(userId, TransactionType.fromValue(type));
     }
 
     @GetMapping(value = "/find", params = "category" )
-    public List<Transaction> getTransactionsByCategory(@PathVariable Long userId, @RequestParam() Long category) {
+    public List<Transaction> getTransactionsByCategory(@PathVariable Long userId, Long category) {
         return transactionService.getAllTransactionsByCategory(userId, category);
     }
 }

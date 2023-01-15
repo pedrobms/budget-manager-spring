@@ -24,18 +24,18 @@ public class BalanceController {
         return balanceService.getBalance(userId);
     }
 
-    @GetMapping("/income")
-    public BigDecimal getIncome(@PathVariable Long userId) {
-        return balanceService.getSumOfTransactionsByType(userId, TransactionType.INCOME);
+    @GetMapping(value = "find", params = { "startDate", "endDate" })
+    public BigDecimal getBalanceByPeriod(@PathVariable Long userId, String startDate, String endDate) {
+        return balanceService.getSumOfTransactionsByPeriod(userId, startDate, endDate);
     }
 
-    @GetMapping("/expense")
-    public BigDecimal getExpense(@PathVariable Long userId) {
-        return balanceService.getSumOfTransactionsByType(userId, TransactionType.EXPENSE);
+    @GetMapping(value = "find", params = "type")
+    public BigDecimal getBalanceByType(@PathVariable Long userId, String type) {
+        return balanceService.getSumOfTransactionsByType(userId, TransactionType.fromValue(type));
     }
 
-    @GetMapping("/month/{month}")
-    public BigDecimal getBalanceByMonth(@PathVariable Long userId, @PathVariable int month) {
-        return balanceService.getSumOfTransactionsByMonth(userId, month);
+    @GetMapping(value = "find", params = { "startDate", "endDate", "type" })
+    public BigDecimal getBalanceByPeriodAndType(@PathVariable Long userId, String startDate, String endDate, String type) {
+        return balanceService.getSumOfTransactionsByPeriodAndType(userId, startDate, endDate, TransactionType.fromValue(type));
     }
 }
