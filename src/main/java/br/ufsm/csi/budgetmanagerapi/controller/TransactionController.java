@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerapi.model.Transaction;
@@ -30,16 +31,6 @@ public class TransactionController {
     @GetMapping("")
     public List<Transaction> getTransactions(@PathVariable Long userId) {
         return transactionService.getAllTransactions(userId);
-    }
-
-    @GetMapping("/type/{type}")
-    public List<Transaction> getTransactionsByType(@PathVariable Long userId, @PathVariable String type) {
-        return transactionService.getAllTransactionsByType(userId, TransactionType.fromValue(type));
-    }
-
-    @GetMapping("/category/{categoryId}")
-    public List<Transaction> getTransactionsByCategory(@PathVariable Long userId, @PathVariable Long categoryId) {
-        return transactionService.getAllTransactionsByCategory(userId, categoryId);
     }
 
     @GetMapping("/{id}")
@@ -66,5 +57,20 @@ public class TransactionController {
     @DeleteMapping("/{id}")
     public void deleteTransaction(@PathVariable Long userId, @PathVariable Long id) {
         transactionService.deleteTransaction(userId, id);
+    }
+
+    @GetMapping(value = "/find", params = { "startDate", "endDate" })
+    public List<Transaction> getTransactionsByPeriod(@PathVariable Long userId, @RequestParam() String startDate, @RequestParam() String endDate) {
+        return transactionService.getAllTransactionsByPeriod(userId, startDate, endDate);
+    }
+
+    @GetMapping(value = "/find", params = "type" )
+    public List<Transaction> getTransactionsByType(@PathVariable Long userId, @RequestParam() String type) {
+        return transactionService.getAllTransactionsByType(userId, TransactionType.fromValue(type));
+    }
+
+    @GetMapping(value = "/find", params = "category" )
+    public List<Transaction> getTransactionsByCategory(@PathVariable Long userId, @RequestParam() Long category) {
+        return transactionService.getAllTransactionsByCategory(userId, category);
     }
 }

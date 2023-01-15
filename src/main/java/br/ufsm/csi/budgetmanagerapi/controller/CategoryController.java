@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerapi.model.Category;
@@ -28,11 +29,6 @@ public class CategoryController {
     @GetMapping("")
     public List<Category> getCategories(@PathVariable Long userId) {
         return categoryService.getAllCategories(userId);
-    }
-
-    @GetMapping("/type/{type}")
-    public List<Category> getCategoriesByType(@PathVariable Long userId, @PathVariable String type) {
-        return categoryService.getAllCategoriesByType(userId, TransactionType.fromValue(type));
     }
 
     @GetMapping("/{id}")
@@ -53,5 +49,10 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Long userId, @PathVariable Long id) {
         categoryService.deleteCategory(userId, id);
+    }
+
+    @GetMapping(value = "/find", params = "type")
+    public List<Category> getCategoriesByType(@PathVariable Long userId, @RequestParam() String type) {
+        return categoryService.getAllCategoriesByType(userId, TransactionType.fromValue(type));
     }
 }

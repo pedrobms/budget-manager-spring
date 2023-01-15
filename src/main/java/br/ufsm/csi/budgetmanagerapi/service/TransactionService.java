@@ -1,5 +1,7 @@
 package br.ufsm.csi.budgetmanagerapi.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +68,17 @@ public class TransactionService {
             throw new RuntimeException("Transaction not found");
         } else if (category == null) {
             throw new RuntimeException("Category not found");
-        } else if (transactionToUpdate.getUser().getId() != userId) {
-            throw new RuntimeException("Transaction does not belong to user");
         }
         
         transactionToUpdate.setValue(transaction.getValue());
         transactionToUpdate.setDescription(transaction.getDescription());
         transactionToUpdate.setCategory(transaction.getCategory());
         return transactionRepository.save(transactionToUpdate);
+    }
+
+    public List<Transaction> getAllTransactionsByPeriod(Long userId, String startDate, String endDate) {
+        LocalDateTime startDateTime = LocalDate.parse(startDate).atStartOfDay();
+        LocalDateTime endDateTime = LocalDate.parse(endDate).atTime(23, 59, 59);
+        return transactionRepository.findAllByUserIdAndCreatedAtBetween(userId, startDateTime, endDateTime);
     }
 }

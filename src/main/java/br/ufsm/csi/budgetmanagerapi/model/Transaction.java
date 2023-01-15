@@ -1,7 +1,7 @@
 package br.ufsm.csi.budgetmanagerapi.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,7 +33,8 @@ public class Transaction {
     @NotNull(message = "Transction type is required")
     private TransactionType type;
     
-    private Date createdAt = new Date(System.currentTimeMillis());
+    // @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JsonIgnoreProperties("user")
@@ -53,6 +56,16 @@ public class Transaction {
         this.category = category;
         this.user = user;
     }
+
+    public Transaction(String description, BigDecimal value, TransactionType type, Category category, User user, LocalDateTime createdAt) {
+        this.description = description;
+        this.value = value;
+        this.type = type;
+        this.category = category;
+        this.user = user;
+        this.createdAt = createdAt;
+    }
+
 
     public long getId() {
         return id;
@@ -86,11 +99,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

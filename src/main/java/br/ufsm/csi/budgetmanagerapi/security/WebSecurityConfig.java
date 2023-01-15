@@ -49,10 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users").hasAuthority(Role.ADMIN.getValue())
                 .antMatchers("/users/{userId}").access("@userSecurity.isAdmin(request) OR @userSecurity.hasUserId(request, #userId)")
                 .antMatchers("/users/{userId}/transactions").access("@userSecurity.hasUserId(request, #userId)")
-                .antMatchers("/users/{userId}/transactions/type/{type}").access("@userSecurity.hasUserId(request, #userId)")
-                .antMatchers("/users/{userId}/transactions/category/{categoryId}").access("@userSecurity.hasUserIdinCategory(request, #userId, #categoryId)")
+                .antMatchers("/users/{userId}/transactions/find").access("@userSecurity.hasUserId(request, #userId)")
                 .antMatchers("/users/{userId}/transactions/{transactionId}").access("@userSecurity.hasUserIdinTransaction(request, #userId, #transactionId)")
                 .antMatchers("/users/{userId}/categories").access("@userSecurity.hasUserId(request, #userId)")
+                .antMatchers("/users/{userId}/categories/find").access("@userSecurity.hasUserId(request, #userId)")
                 .antMatchers("/users/{userId}/balance/**").access("@userSecurity.hasUserId(request, #userId)")
                 .anyRequest().authenticated();
         

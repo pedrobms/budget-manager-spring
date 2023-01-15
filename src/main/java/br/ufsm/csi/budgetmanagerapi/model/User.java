@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(
@@ -37,9 +37,11 @@ public class User {
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Email is invalid")
     private String email;
     
+    @CreationTimestamp
+    private Date createdAt;
+    
     private String token;
     private Boolean active;
-    private Date createdAt = new Date(System.currentTimeMillis());
     private Role role;
 
     public User() {

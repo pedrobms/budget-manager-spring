@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -26,7 +28,8 @@ public class Category {
     @NotNull(message = "Transaction type is required")
     private TransactionType type;
 
-    private Date createdAt = new Date(System.currentTimeMillis());
+    @CreationTimestamp
+    private Date createdAt;
 
     @ManyToOne
     @JsonIgnoreProperties("password")
@@ -34,6 +37,10 @@ public class Category {
     private User user;
 
     public Category() {
+    }
+
+    public Category(Long id){
+        this.id = id;
     }
 
     public Category(String name, TransactionType type, User user) {
