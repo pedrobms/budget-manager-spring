@@ -1,6 +1,8 @@
 package br.ufsm.csi.budgetmanagerapi.controller;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -70,99 +72,55 @@ public class TestController {
             )
         );
 
-        categoryRepository.save(
-            new Category(
-                "Categoria administrador",
-                TransactionType.INCOME,
-                userRepository.findById(1L).get()
-            )
-        );
+        createUserFakeData(1);
+        createUserFakeData(2);
+        createUserFakeData(3);
+    }
 
-        categoryRepository.save(
-            new Category(
-                "Categoria usuario",
-                TransactionType.EXPENSE,
-                userRepository.findById(2L).get()
-            )
-        );
-        categoryRepository.save(
-            new Category(
-                "Categoria usuario 2",
-                TransactionType.EXPENSE,
-                userRepository.findById(3L).get()
-            )
-        );
-        categoryRepository.save(
-            new Category(
-                "Categoria administrador despesa",
-                TransactionType.EXPENSE,
-                userRepository.findById(1L).get()
-            )
-        );
+    public void createUserFakeData(long userId) {
+        for (int i = 1; i < 6; i++) {
+            categoryRepository.save(
+                new Category(
+                    "Categoria receita administrador " + i,
+                    TransactionType.INCOME,
+                    new User(userId)
+                )
+            );
+        }
 
-        transactionRepository.save(
-            new Transaction(
-                "Transacao 1 administrador",
-                BigDecimal.valueOf(200.5),
-                TransactionType.INCOME,
-                categoryRepository.findById(1L).get(),
-                userRepository.findById(1L).get()
-            )
-        );
+        for (int i=6; i<11; i++) {
+            categoryRepository.save(
+                new Category(
+                    "Categoria despesa administrador " + i,
+                    TransactionType.EXPENSE,
+                    new User(userId)
+                )
+            );
+        }
 
-        transactionRepository.save(
-            new Transaction(
-                "Despesa 1 administrador",
-                BigDecimal.valueOf(200.5),
-                TransactionType.EXPENSE,
-                categoryRepository.findById(4L).get(),
-                userRepository.findById(1L).get()
-            )
-        );
-        transactionRepository.save(
-            new Transaction(
-                "Transacao 2 administrador",
-                BigDecimal.valueOf(200.5),
-                TransactionType.INCOME,
-                categoryRepository.findById(1L).get(),
-                userRepository.findById(1L).get()
-            )
-        );
-        transactionRepository.save(
-            new Transaction(
-                "Transacao 1 usuario",
-                BigDecimal.valueOf(100.5),
-                TransactionType.EXPENSE,
-                categoryRepository.findById(2L).get(),
-                userRepository.findById(2L).get()
-            )
-        );
-        transactionRepository.save(
-            new Transaction(
-                "Transacao 2 usuario",
-                BigDecimal.valueOf(100.5),
-                TransactionType.EXPENSE,
-                categoryRepository.findById(2L).get(),
-                userRepository.findById(2L).get()
-            )
-        );
-        transactionRepository.save(
-            new Transaction(
-                "Transacao 1 usuario",
-                BigDecimal.valueOf(100.5),
-                TransactionType.EXPENSE,
-                categoryRepository.findById(3L).get(),
-                userRepository.findById(3L).get()
-            )
-        );
-        transactionRepository.save(
-            new Transaction(
-                "Transacao 2 usuario",
-                BigDecimal.valueOf(100.5),
-                TransactionType.EXPENSE,
-                categoryRepository.findById(3L).get(),
-                userRepository.findById(3L).get()
-            )
-        );
+        for (int i = 1; i < 51; i++) {
+            transactionRepository.save(
+                new Transaction(
+                    "Transacao " + i + " categoria " + i,
+                    //get a random big decimal with 2 decimal places between 0 and 1000
+                    BigDecimal.valueOf(Math.random() * 1000).setScale(2, RoundingMode.HALF_EVEN),
+                    TransactionType.INCOME,
+                    new Category((long) (Math.random() * 5 + 1)),
+                    new User(userId),
+                    LocalDateTime.now().minusYears((long) (Math.random() * 2)).minusMonths((long) (Math.random() * 12)).minusDays((long) (Math.random() * 30))
+                )
+            );
+
+            transactionRepository.save(
+                new Transaction(
+                    "Despesa " + i + " categoria " + i,
+                    BigDecimal.valueOf(200.5),
+                    TransactionType.EXPENSE,
+                    new Category((long) (Math.random() * 5 + 6)),
+                    new User(userId),
+                    LocalDateTime.now().minusYears((long) (Math.random() * 2)).minusMonths((long) (Math.random() * 12)).minusDays((long) (Math.random() * 30))
+                )
+            );
+        }
     }
 }
