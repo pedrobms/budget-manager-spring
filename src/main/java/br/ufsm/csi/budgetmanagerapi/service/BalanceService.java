@@ -23,6 +23,12 @@ public class BalanceService {
         return sumOfIncomes.subtract(sumOfExpenses);
     }
 
+    public BigDecimal getBalanceByPeriod(Long userId, String startDate, String endDate) {
+        BigDecimal sumOfIncomes = getSumOfTransactionsByPeriodAndType(userId, startDate, endDate, TransactionType.INCOME);
+        BigDecimal sumOfExpenses = getSumOfTransactionsByPeriodAndType(userId, startDate, endDate, TransactionType.EXPENSE);
+        return sumOfIncomes.subtract(sumOfExpenses);
+    }
+
     public BigDecimal getSumOfTransactionsByType(Long userId, TransactionType type) {
         List<Transaction> transactions = transactionRepository.findAllByUserIdAndType(userId, type);
         BigDecimal sum = new BigDecimal(0);

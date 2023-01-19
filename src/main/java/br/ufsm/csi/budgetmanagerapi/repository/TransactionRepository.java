@@ -12,21 +12,21 @@ import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId")
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId ORDER by t.createdAt DESC")
     List<Transaction> findAllByUserId(Long userId);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.type = :type")
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.type = :type ORDER by t.createdAt DESC")
     List<Transaction> findAllByUserIdAndType(Long userId, TransactionType type);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.id = :id")
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.id = :id ORDER by t.createdAt DESC")
     Transaction findByIdAndUserId(Long userId, Long id);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.category.id = :categoryId")
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.category.id = :categoryId ORDER by t.createdAt DESC")
     List<Transaction> findAllByUserIdAndCategoryId(Long userId, Long categoryId);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate")
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate ORDER by t.createdAt DESC")
     List<Transaction> findAllByUserIdAndCreatedAtBetween(Long userId, LocalDateTime startDate, LocalDateTime endDate);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate AND t.type = :type")
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate AND t.type = :type ORDER by t.createdAt DESC")
     List<Transaction> findAllByUserIdAndCreatedAtBetweenAndType(Long userId, LocalDateTime startDate, LocalDateTime endDate, TransactionType type);
 }

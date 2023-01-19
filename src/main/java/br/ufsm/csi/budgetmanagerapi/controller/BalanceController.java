@@ -26,7 +26,7 @@ public class BalanceController {
 
     @GetMapping(value = "find", params = { "startDate", "endDate" })
     public BigDecimal getBalanceByPeriod(@PathVariable Long userId, String startDate, String endDate) {
-        return balanceService.getSumOfTransactionsByPeriod(userId, startDate, endDate);
+        return balanceService.getBalanceByPeriod(userId, startDate, endDate);
     }
 
     @GetMapping(value = "find", params = "type")

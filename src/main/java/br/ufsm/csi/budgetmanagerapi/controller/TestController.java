@@ -81,7 +81,7 @@ public class TestController {
         for (int i = 1; i < 6; i++) {
             categoryRepository.save(
                 new Category(
-                    "Categoria receita administrador " + i,
+                    "Categoria receita " + i,
                     TransactionType.INCOME,
                     new User(userId)
                 )
@@ -91,18 +91,17 @@ public class TestController {
         for (int i=6; i<11; i++) {
             categoryRepository.save(
                 new Category(
-                    "Categoria despesa administrador " + i,
+                    "Categoria despesa " + i,
                     TransactionType.EXPENSE,
                     new User(userId)
                 )
             );
         }
 
-        for (int i = 1; i < 51; i++) {
+        for (int i = 1; i < 100; i++) {
             transactionRepository.save(
                 new Transaction(
-                    "Transacao " + i + " categoria " + i,
-                    //get a random big decimal with 2 decimal places between 0 and 1000
+                    "Transacao " + i,
                     BigDecimal.valueOf(Math.random() * 1000).setScale(2, RoundingMode.HALF_EVEN),
                     TransactionType.INCOME,
                     new Category((long) (Math.random() * 5 + 1)),
@@ -113,7 +112,7 @@ public class TestController {
 
             transactionRepository.save(
                 new Transaction(
-                    "Despesa " + i + " categoria " + i,
+                    "Despesa " + i,
                     BigDecimal.valueOf(200.5),
                     TransactionType.EXPENSE,
                     new Category((long) (Math.random() * 5 + 6)),
