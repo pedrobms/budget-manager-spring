@@ -2,6 +2,10 @@ package br.ufsm.csi.budgetmanagerapi.model.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.ufsm.csi.budgetmanagerapi.model.Transaction;
 
@@ -79,5 +83,9 @@ public class TransactionDTO {
 
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
+    }
+
+    public static Page<TransactionDTO> convert(Page<Transaction> transactions) {
+        return transactions.map(TransactionDTO::new);
     }
 }

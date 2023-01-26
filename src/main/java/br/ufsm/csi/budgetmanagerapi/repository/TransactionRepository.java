@@ -2,7 +2,10 @@ package br.ufsm.csi.budgetmanagerapi.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,21 +15,21 @@ import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId ORDER by t.createdAt DESC")
-    List<Transaction> findAllByUserId(Long userId);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.type = :type ORDER by t.createdAt DESC")
-    List<Transaction> findAllByUserIdAndType(Long userId, TransactionType type);
+    Page<Transaction> findByUserId(Long userId, Pageable pageable);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.id = :id ORDER by t.createdAt DESC")
-    Transaction findByIdAndUserId(Long userId, Long id);
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.type = :type")
+    Page<Transaction> findAllByUserIdAndType(Long userId, TransactionType type, Pageable pageable);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.category.id = :categoryId ORDER by t.createdAt DESC")
-    List<Transaction> findAllByUserIdAndCategoryId(Long userId, Long categoryId);
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.id = :id")
+    Optional<Transaction> findByIdAndUserId(Long userId, Long id);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate ORDER by t.createdAt DESC")
-    List<Transaction> findAllByUserIdAndCreatedAtBetween(Long userId, LocalDateTime startDate, LocalDateTime endDate);
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.category.id = :categoryId")
+    Page<Transaction> findAllByUserIdAndCategoryId(Long userId, Long categoryId, Pageable pageable);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate AND t.type = :type ORDER by t.createdAt DESC")
-    List<Transaction> findAllByUserIdAndCreatedAtBetweenAndType(Long userId, LocalDateTime startDate, LocalDateTime endDate, TransactionType type);
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate")
+    Page<Transaction> findAllByUserIdAndCreatedAtBetween(Long userId, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+
+    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.createdAt BETWEEN :startDate AND :endDate AND t.type = :type")
+    Page<Transaction> findAllByUserIdAndCreatedAtBetweenAndType(Long userId, LocalDateTime startDate, LocalDateTime endDate, TransactionType type, Pageable pageable);
 }
