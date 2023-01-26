@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 public class CategoryForm {
-    @NotNull @NotEmpty @Length(min = 3)
+    @NotNull @NotEmpty @Length(min = 3, max = 50)
     private String name;
     @NotNull @NotEmpty
     private String transactionType;
