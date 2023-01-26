@@ -2,8 +2,9 @@ package br.ufsm.csi.budgetmanagerapi.model.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.domain.Page;
+
 import br.ufsm.csi.budgetmanagerapi.model.Category;
-import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
 
 public class CategoryDTO {
     private Long id;
@@ -51,5 +52,9 @@ public class CategoryDTO {
 
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
+    }
+
+    public static Page<CategoryDTO> convert(Page<Category> categories) {
+        return categories.map(CategoryDTO::new);
     }
 }

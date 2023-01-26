@@ -1,13 +1,17 @@
 package br.ufsm.csi.budgetmanagerapi.service;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.ufsm.csi.budgetmanagerapi.model.Category;
 import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
 import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.model.dto.CategoryDTO;
+import br.ufsm.csi.budgetmanagerapi.model.form.CategoryForm;
 import br.ufsm.csi.budgetmanagerapi.repository.CategoryRepository;
 
 @Service
@@ -15,43 +19,45 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> getAllCategories(Long userId) {
-        return categoryRepository.findAllByUserId(userId);
+    public Page<CategoryDTO> getAllCategories(Long userId, Pageable pageable) {
+        return CategoryDTO.convert(categoryRepository.findByUserId(userId, pageable));
     }
 
-    public List<Category> getAllCategoriesByType(Long userId, TransactionType type) {
-        return categoryRepository.findAllByUserIdAndType(userId, type);
+    public Page<CategoryDTO> getAllCategoriesByType(Long userId, TransactionType type, Pageable pageable) {
+        return CategoryDTO.convert(categoryRepository.findByUserIdAndType(userId, type, pageable));
     }
 
-    public Category getCategoryById(Long userId, Long id) {
-        return categoryRepository.findByIdAndUserId(userId, id);
+    public CategoryDTO getCategoryById(Long userId, Long id) {
+        Optional<Category> category = categoryRepository.findByIdAndUserId(userId, id);
+        return category.isPresent() ? new CategoryDTO(category.get()) : null;
     }
 
-    public Category addCategory(Long userId, Category category) {
-        category.setUser(new User(userId));
-        return categoryRepository.save(category);
+    public CategoryDTO addCategory(Long userId, CategoryForm category) {
+        Category newCategory = new Category(category.getName(), TransactionType.fromValue(category.getTransactionType()), new User(userId));
+        return new CategoryDTO(categoryRepository.save(newCategory));
     }
 
-    public void deleteCategory(Long userId, Long id) {
-        Category category = categoryRepository.findByIdAndUserId(userId, id);
+    public boolean deleteCategory(Long userId, Long id) {
+        Optional<Category> category = categoryRepository.findByIdAndUserId(userId, id);
 
-        if (category == null) {
-            throw new RuntimeException("Category not found");
+        if (!category.isPresent()) {
+            return false;
         }
 
-        categoryRepository.deleteById(id);
+        categoryRepository.delete(category.get());
+        return true;
     }
 
-    public Category updateCategory(Long userId, Category category) {
-        Category categoryToUpdate = categoryRepository.findByIdAndUserId(userId, category.getId());
+    public CategoryDTO updateCategory(Long userId, Long id, CategoryForm category) {
+        Optional<Category> categoryToUpdate = categoryRepository.findByIdAndUserId(userId, id);
 
-        if (categoryToUpdate == null) {
-            throw new RuntimeException("Category not found");
+        if (!categoryToUpdate.isPresent()) {
+            return null;
         }
 
-        categoryToUpdate.setName(category.getName());
-        categoryToUpdate.setType(category.getType());
+        categoryToUpdate.get().setName(category.getName());
+        categoryToUpdate.get().setType(TransactionType.fromValue(category.getTransactionType()));
         
-        return categoryRepository.save(categoryToUpdate);
+        return new CategoryDTO(categoryRepository.save(categoryToUpdate.get()));
     }
 }
