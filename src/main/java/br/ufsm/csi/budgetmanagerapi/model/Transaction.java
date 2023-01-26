@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,27 +21,15 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String description;
-
     @Column(name = "transaction_value")
-    @NotNull(message = "Value is required")
     private BigDecimal value;
-
-    @NotNull(message = "Transction type is required")
     private TransactionType type;
-    
     // @CreationTimestamp
     private LocalDateTime createdAt;
-
     @ManyToOne
-    @JsonIgnoreProperties("user")
-    @NotNull
     private Category category;
-
     @ManyToOne
-    @JsonIgnoreProperties("password")
-    @JsonIgnore
     private User user;
 
     public Transaction() {

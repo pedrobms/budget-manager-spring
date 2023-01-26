@@ -1,6 +1,6 @@
 package br.ufsm.csi.budgetmanagerapi.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,32 +8,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "categories")
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotEmpty(message = "Name is required")
     private String name;
-
-    @NotNull(message = "Transaction type is required")
     private TransactionType type;
-
     @CreationTimestamp
-    private Date createdAt;
-
+    private LocalDateTime createdAt;
     @ManyToOne
-    @JsonIgnoreProperties("password")
-    @NotNull(message = "User is required")
     private User user;
 
     public Category() {
@@ -73,11 +60,11 @@ public class Category {
         this.type = type;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
