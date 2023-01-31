@@ -1,6 +1,6 @@
 package br.ufsm.csi.budgetmanagerapi.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -25,21 +22,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotEmpty(message = "Name is required")
     private String name;
-
-    @NotEmpty(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
-
-    @NotEmpty(message = "Email is required")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Email is invalid")
     private String email;
-    
     @CreationTimestamp
-    private Date createdAt;
-    
+    private LocalDateTime createdAt;
     private String token;
     private Boolean active;
     private Role role;
@@ -107,11 +94,11 @@ public class User {
         this.active = active;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

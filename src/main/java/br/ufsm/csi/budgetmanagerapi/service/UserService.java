@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import br.ufsm.csi.budgetmanagerapi.model.Role;
 import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.model.dto.UserDTO;
+import br.ufsm.csi.budgetmanagerapi.model.form.RegisterForm;
 import br.ufsm.csi.budgetmanagerapi.repository.UserRepository;
 
 @Service
@@ -32,6 +34,18 @@ public class UserService {
         user.setActive(true);
         user.setRole(Role.USER);
         return userRepository.save(user);
+    }
+
+    public UserDTO registerUser(RegisterForm user) {
+        return new UserDTO(userRepository.save(
+            new User(
+                user.getName(),
+                user.getEmail(),
+                new BCryptPasswordEncoder().encode(user.getPassword()),
+                true,
+                Role.USER
+            )
+        ));
     }
 
     public User updateUser(Long id, User user) {

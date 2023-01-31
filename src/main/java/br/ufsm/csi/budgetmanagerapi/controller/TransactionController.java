@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.ufsm.csi.budgetmanagerapi.model.Transaction;
 import br.ufsm.csi.budgetmanagerapi.model.TransactionType;
 import br.ufsm.csi.budgetmanagerapi.model.dto.TransactionDTO;
 import br.ufsm.csi.budgetmanagerapi.model.form.TransactionForm;

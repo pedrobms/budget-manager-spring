@@ -1,5 +1,7 @@
 package br.ufsm.csi.budgetmanagerapi.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufsm.csi.budgetmanagerapi.model.User;
+import br.ufsm.csi.budgetmanagerapi.model.dto.UserDTO;
+import br.ufsm.csi.budgetmanagerapi.model.form.LoginForm;
+import br.ufsm.csi.budgetmanagerapi.model.form.RegisterForm;
 import br.ufsm.csi.budgetmanagerapi.security.JWTUtil;
 import br.ufsm.csi.budgetmanagerapi.service.UserService;
 
@@ -21,8 +26,8 @@ import br.ufsm.csi.budgetmanagerapi.service.UserService;
 @CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/auth")
 public class AuthController {
-    public static final String BAD_CREDENTIALS_MESSAGE = "Password or email invalid";
-    public static final String USER_ALREADY_EXISTS_MESSAGE = "Email already exists";
+    public static final String BAD_CREDENTIALS_MESSAGE = "Email ou senha inválidos";
+    public static final String USER_ALREADY_EXISTS_MESSAGE = "Email já existe";
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -31,7 +36,7 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> authentication(@RequestBody User credentials){
+    public ResponseEntity<?> authentication(@RequestBody @Valid LoginForm credentials){
         try {
             final Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -50,9 +55,8 @@ public class AuthController {
                 System.out.println("-- JWT token: " + token);
 
                 user.setToken(token);
-                user.setPassword(null);
 
-                return new ResponseEntity<>(user, HttpStatus.OK);
+                return new ResponseEntity<UserDTO>(new UserDTO(user), HttpStatus.OK);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,15 +66,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody User user){
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterForm form){
         try {
-            userService.addUser(user);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<UserDTO>(userService.registerUser(form), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            ResponseEntity<Object> response = new ResponseEntity<>(USER_ALREADY_EXISTS_MESSAGE, HttpStatus.BAD_REQUEST);
-            System.out.println(response);
-            return response;
+            return new ResponseEntity<>(USER_ALREADY_EXISTS_MESSAGE, HttpStatus.BAD_REQUEST);
         }
     }
 
