@@ -18,6 +18,7 @@ public class Category {
     private long id;
     private String name;
     private TransactionType type;
+    private Boolean active = true;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @ManyToOne
@@ -74,6 +75,14 @@ public class Category {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override

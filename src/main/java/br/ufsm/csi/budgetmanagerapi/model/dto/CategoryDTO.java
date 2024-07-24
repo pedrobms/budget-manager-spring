@@ -11,6 +11,7 @@ public class CategoryDTO {
     private String name;
     private LocalDateTime createdAt;
     private String transactionType;
+    private Boolean active;
 
     public CategoryDTO() {
     }
@@ -20,6 +21,7 @@ public class CategoryDTO {
         this.name = category.getName();
         this.createdAt = category.getCreatedAt();
         this.transactionType = category.getType().getValue();
+        this.active = category.getActive();
     }
 
     public Long getId() {
@@ -56,5 +58,13 @@ public class CategoryDTO {
 
     public static Page<CategoryDTO> convert(Page<Category> categories) {
         return categories.map(CategoryDTO::new);
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

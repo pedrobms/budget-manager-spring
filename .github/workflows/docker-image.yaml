@@ -1,0 +1,17 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push Docker images
+        run: |
+          docker login --username pedrobms --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build . --tag ghcr.io/pedrobms/budget-manager-api:latest
+          docker push ghcr.io/pedrobms/budget-manager-api:latest

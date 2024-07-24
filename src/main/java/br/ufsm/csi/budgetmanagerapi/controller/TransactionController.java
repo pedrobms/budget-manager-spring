@@ -30,7 +30,6 @@ import br.ufsm.csi.budgetmanagerapi.service.TransactionService;
 
 @RestController
 @RequestMapping("/users/{userId}/transactions")
-@CrossOrigin(origins = "http://localhost:8081")
 public class TransactionController {
 
     @Autowired

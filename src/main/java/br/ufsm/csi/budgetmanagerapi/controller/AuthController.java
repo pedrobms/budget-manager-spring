@@ -23,7 +23,6 @@ import br.ufsm.csi.budgetmanagerapi.security.JWTUtil;
 import br.ufsm.csi.budgetmanagerapi.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/auth")
 public class AuthController {
     public static final String BAD_CREDENTIALS_MESSAGE = "Email ou senha inválidos";

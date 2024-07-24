@@ -14,6 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.ufsm.csi.budgetmanagerapi.model.Role;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -37,14 +44,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthenticationFilter();
     }
 
+    @Bean
+    public CorsFilter corsFilter() {
+        final var config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+
+        final var source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .cors().and().csrf().disable()
+        http.cors().and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/auth/*").permitAll()
+                .antMatchers("/**").permitAll()
+                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/register").permitAll()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/users").hasAuthority(Role.ADMIN.getValue())
                 .antMatchers("/users/{userId}").access("@userSecurity.isAdmin(request) OR @userSecurity.hasUserId(request, #userId)")

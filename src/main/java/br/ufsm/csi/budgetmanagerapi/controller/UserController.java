@@ -20,7 +20,6 @@ import br.ufsm.csi.budgetmanagerapi.service.UserService;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:8081")
 public class UserController {
     @Autowired
     private UserService userService;

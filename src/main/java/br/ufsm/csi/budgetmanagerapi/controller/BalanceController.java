@@ -14,7 +14,6 @@ import br.ufsm.csi.budgetmanagerapi.service.BalanceService;
 
 @RestController
 @RequestMapping("/users/{userId}/balance")
-@CrossOrigin(origins = "http://localhost:8081")
 public class BalanceController {
     @Autowired
     private BalanceService balanceService;
